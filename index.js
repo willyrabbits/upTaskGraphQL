@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
 
 const typeDefs = require('./db/schema')
 const resolvers = require('./db/resolvers')

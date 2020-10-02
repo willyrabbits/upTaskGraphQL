@@ -6,7 +6,7 @@ require('dotenv').config({ path: 'variables.env' })
 // create and sign a token
 const createToken = (user, secretword, expiresIn) => {
     const { id, email } = user
-    return jwt.sign({id,email},secretword,{expiresIn})
+    return jwt.sign({ id, email }, secretword, { expiresIn })
 }
 
 const resolvers = {
@@ -24,7 +24,7 @@ const resolvers = {
             }
 
             try {
-                // hass password 
+                // hash password 
                 const salt = await bcryptjs.genSalt(10)
                 input.password = await bcryptjs.hash(password, salt)
 
