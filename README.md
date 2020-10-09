@@ -1,8 +1,6 @@
-# WORK IN PROGRESS
+# Fullstack React Native: Apollo server & GraphQL
 
-## Fullstack React Native: Apollo server & GraphQL
-
-`this project will have the app realted to it... keep tuned`
+`this project will have the app realted to it... https://github.com/willyrabbits/upTaskNative`
 
 
 
