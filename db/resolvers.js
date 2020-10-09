@@ -7,8 +7,8 @@ require('dotenv').config({ path: 'variables.env' })
 
 // create and sign a token
 const createToken = (user, secretword, expiresIn) => {
-    const { id, email } = user
-    return jwt.sign({ id, email }, secretword, { expiresIn })
+    const { id, name, email } = user
+    return jwt.sign({ id, name, email }, secretword, { expiresIn })
 }
 
 const resolvers = {
@@ -29,7 +29,7 @@ const resolvers = {
             // check if user exists
             const userExist = await User.findOne({ email })
             if (userExist) {
-                throw new Error('- User already exist')
+                throw new Error('User already exist')
             }
 
             try {
@@ -53,18 +53,18 @@ const resolvers = {
             // check if user exists
             const existingUser = await User.findOne({ email })
             if (!existingUser) {
-                throw new Error('- User does NOT exist')
+                throw new Error('User does NOT exist')
             }
 
             // check if password is ok
             const passwordCorrect = await bcryptjs.compare(password, existingUser.password)
             if (!passwordCorrect) {
-                throw new Error('- Password does NOT match')
+                throw new Error('Password does NOT match')
             }
 
             // give access to app
             return {
-                token: createToken(existingUser, process.env.SECRET, '2hr')
+                token: createToken(existingUser, process.env.SECRET, '4hr')
             }
         },
 
@@ -86,12 +86,12 @@ const resolvers = {
             // check if project exists
             let project = await Project.findById(id)
             if (!project) {
-                throw new Error('- Project not found!')
+                throw new Error('Project not found!')
             }
 
             // verify that user == creator
             if (project.creador.toString() !== context.user.id) {
-                throw new Error('- You con not modify a project if you hve not created it')
+                throw new Error('You can not modify a project if you hve not created it')
             }
 
             // update project
@@ -102,12 +102,12 @@ const resolvers = {
             // check if project exists
             let project = await Project.findById(id)
             if (!project) {
-                throw new Error('- Project not found!')
+                throw new Error('Project not found!')
             }
 
             // verify that user == creator
             if (project.creador.toString() !== context.user.id) {
-                throw new Error('- You con not delete a project if you hve not created it')
+                throw new Error('You con not delete a project if you hve not created it')
             }
 
             // delete project
@@ -133,12 +133,12 @@ const resolvers = {
             // check if task exists
             let task = await Task.findById(id)
             if (!task) {
-                throw new Error('- Task not found!')
+                throw new Error('Task not found!')
             }
 
             // verify that user == creator
             if (task.creator.toString() !== context.user.id) {
-                throw new Error('- You con not modify a task if you have not created it')
+                throw new Error('You con not modify a task if you have not created it')
             }
 
             // set state
@@ -152,12 +152,12 @@ const resolvers = {
             // check if task exists
             let task = await Task.findById(id)
             if (!task) {
-                throw new Error('- Task not found!')
+                throw new Error('Task not found!')
             }
 
             // verify that user == creator
             if (task.creator.toString() !== context.user.id) {
-                throw new Error('- You con not delete a task if you hve not created it')
+                throw new Error('You can not delete a task if you hve not created it')
             }
 
             // delete task

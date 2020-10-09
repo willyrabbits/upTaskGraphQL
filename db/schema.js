@@ -28,7 +28,7 @@ const typeDefs = gql`
 
     input TaskInput {
         name: String!
-        project: String!
+        project: String
     }
 
     type Task {
